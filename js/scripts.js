@@ -5,11 +5,8 @@ function getComputerChoice() {
   return handSigns[computerChoiceIndex];
 }
 
-function getPlayerChoice() {
-  return prompt('Rock, Paper, or Scissors?').toLowerCase();
-}
-
 function playRound(playerSelection, computerSelection) {
+  const scoreboard = document.querySelector('scoreboard');
   const victory = {
     rock: 'scissors', 
     paper: 'rock', 
@@ -17,30 +14,25 @@ function playRound(playerSelection, computerSelection) {
   };
 
   if (playerSelection == computerSelection) {
-    return `Draw! ${playerSelection} vs ${computerSelection}.`;
+    scoreboard.appendChild(writeScore(`Draw! ${playerSelection} vs ${computerSelection}.`));
   } else if (computerSelection == victory[playerSelection]) {
-    playerScore++;
-    return `You win! ${playerSelection} beats ${computerSelection}.`;
+    //playerScore++;
+    scoreboard.appendChild(writeScore(`You win! ${playerSelection} beats ${computerSelection}.`));
   } else {
-    computerScore++;
-    return `You lose! ${computerSelection} beats ${playerSelection}.`;
+    //computerScore++;
+    scoreboard.appendChild(writeScore(`You lose! ${computerSelection} beats ${playerSelection}.`));
   }
 }
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    console.log(playRound(getPlayerChoice(),getComputerChoice()));
-  }
-
-  if (playerScore == computerScore) {
-    console.log(`Game is a Draw! Player: ${playerScore} ComputerScore: ${computerScore}`);
-  } else if (playerScore > computerScore) {
-    console.log(`Player Wins!: ${playerScore} ComputerScore: ${computerScore}`);
-  } else {
-    console.log(`Player Loses!: ${playerScore} ComputerScore: ${computerScore}`);
-  }
+function writeScore(round) {
+  let p = document.createElement('p');
+  p.textContent = round;
+  return p;
 }
 
-var playerScore = 0;
-var computerScore = 0;
-game();
+const signs = Array.from(document.querySelectorAll('.sign'));
+signs.forEach(sign => {
+  sign.addEventListener('click', function () {
+    playRound(sign.classList[0], getComputerChoice());
+  })
+})
