@@ -6,7 +6,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  const scoreboard = document.querySelector('scoreboard');
+  const scoreboard = document.querySelector('.scoreboard');
   const victory = {
     rock: 'scissors', 
     paper: 'rock', 
@@ -25,7 +25,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function writeScore(round) {
-  let p = document.createElement('p');
+  const p = document.createElement('p');
   p.textContent = round;
   return p;
 }
